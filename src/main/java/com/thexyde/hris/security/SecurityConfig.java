@@ -27,11 +27,6 @@ public class SecurityConfig {
     @Autowired
     private UserRepository userRepository;
 
-    // @Bean
-    // public WebSecurityCustomizer webSecurityCustomizer() {
-    // return (web) -> web.ignoring().anyRequest();
-    // }
-
     @Bean
     public SecurityFilterChain customFilterChain(HttpSecurity http) throws Exception {
         http
