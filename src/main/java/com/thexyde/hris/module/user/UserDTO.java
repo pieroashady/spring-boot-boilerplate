@@ -1,6 +1,7 @@
 package com.thexyde.hris.module.user;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,18 +20,108 @@ public class UserDTO {
     @Size(min = 8, message = "Password should have at least 8 characters")
     private String password;
 
-    private String clientId;
+    private UUID clientId;
+
     private String roleId;
+
+    private UUID departmentId;
+
+    private UUID divisionId;
+
+    private UUID jobUnitId;
+
+    private UUID jobLevelId;
+
+    private UUID jobTitleId;
 
     public UserDTO() {
     }
 
-    public UserDTO(String name, String email, String password, String clientId, String roleId) {
+    public UserDTO(String name, String email, String password, UUID clientId, String roleId) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.clientId = clientId;
         this.roleId = roleId;
+    }
+
+    public UserDTO(String name, String email, String password, UUID clientId, String roleId, UUID departmentId,
+            UUID divisionId, UUID jobUnitId, UUID jobLevelId, UUID jobTitleId) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.clientId = clientId;
+        this.roleId = roleId;
+        this.departmentId = departmentId;
+        this.divisionId = divisionId;
+        this.jobUnitId = jobUnitId;
+        this.jobLevelId = jobLevelId;
+        this.jobTitleId = jobTitleId;
+    }
+
+    public UUID getDepartmentId() {
+        return this.departmentId;
+    }
+
+    public void setDepartmentId(UUID departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public UUID getDivisionId() {
+        return this.divisionId;
+    }
+
+    public void setDivisionId(UUID divisionId) {
+        this.divisionId = divisionId;
+    }
+
+    public UUID getJobUnitId() {
+        return this.jobUnitId;
+    }
+
+    public void setJobUnitId(UUID jobUnitId) {
+        this.jobUnitId = jobUnitId;
+    }
+
+    public UUID getJobLevelId() {
+        return this.jobLevelId;
+    }
+
+    public void setJobLevelId(UUID jobLevelId) {
+        this.jobLevelId = jobLevelId;
+    }
+
+    public UUID getJobTitleId() {
+        return this.jobTitleId;
+    }
+
+    public void setJobTitleId(UUID jobTitleId) {
+        this.jobTitleId = jobTitleId;
+    }
+
+    public UserDTO departmentId(UUID departmentId) {
+        setDepartmentId(departmentId);
+        return this;
+    }
+
+    public UserDTO divisionId(UUID divisionId) {
+        setDivisionId(divisionId);
+        return this;
+    }
+
+    public UserDTO jobUnitId(UUID jobUnitId) {
+        setJobUnitId(jobUnitId);
+        return this;
+    }
+
+    public UserDTO jobLevelId(UUID jobLevelId) {
+        setJobLevelId(jobLevelId);
+        return this;
+    }
+
+    public UserDTO jobTitleId(UUID jobTitleId) {
+        setJobTitleId(jobTitleId);
+        return this;
     }
 
     public String getName() {
@@ -57,11 +148,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getClientId() {
+    public UUID getClientId() {
         return this.clientId;
     }
 
-    public void setClientId(String clientId) {
+    public void setClientId(UUID clientId) {
         this.clientId = clientId;
     }
 
@@ -88,7 +179,7 @@ public class UserDTO {
         return this;
     }
 
-    public UserDTO clientId(String clientId) {
+    public UserDTO clientId(UUID clientId) {
         setClientId(clientId);
         return this;
     }

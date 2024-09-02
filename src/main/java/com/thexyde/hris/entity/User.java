@@ -2,6 +2,10 @@ package com.thexyde.hris.entity;
 
 import java.util.UUID;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,22 +14,42 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String name;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
 
     @ManyToOne
     private Client client;
+
+    @ManyToOne
+    private Department department;
+
+    @ManyToOne
+    private Division division;
+
+    @ManyToOne
+    private JobUnit jobUnit;
+
+    @ManyToOne
+    private JobLevel jobLevel;
+
+    @ManyToOne
+    private JobTitle jobTitle;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -34,7 +58,8 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String password, String role, UUID clientId) {
+    public User(String name, String email, String password, String role, UUID clientId, UUID departmentId,
+            UUID divisionId, UUID jobUnitId, UUID jobLevelId, UUID jobTitleId) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -48,6 +73,41 @@ public class User {
             client.setId(clientId);
             this.client = clientModel;
         }
+        if (departmentId != null) {
+            Department departmentModel = new Department();
+            department.setId(departmentId);
+            this.department = departmentModel;
+        }
+        if (divisionId != null) {
+            Division divisionModel = new Division();
+            division.setId(divisionId);
+            this.division = divisionModel;
+        }
+        if (jobUnitId != null) {
+            JobUnit jobUnitModel = new JobUnit();
+            jobUnit.setId(jobUnitId);
+            this.jobUnit = jobUnitModel;
+        }
+        if (jobLevelId != null) {
+            JobLevel jobLevelModel = new JobLevel();
+            jobLevel.setId(jobLevelId);
+            this.jobLevel = jobLevelModel;
+        }
+    }
+
+    public User(UUID id, String name, String email, String password, Client client, Department department,
+            Division division, JobUnit jobUnit, JobLevel jobLevel, JobTitle jobTitle, Role role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.client = client;
+        this.department = department;
+        this.division = division;
+        this.jobUnit = jobUnit;
+        this.jobLevel = jobLevel;
+        this.jobTitle = jobTitle;
+        this.role = role;
     }
 
     public UUID getId() {
@@ -98,34 +158,133 @@ public class User {
         this.role = role;
     }
 
-    public User id(UUID id) {
-        setId(id);
+    public void setClientId(UUID clientId) {
+        if (clientId != null) {
+            Client clientModel = new Client();
+            clientModel.setId(clientId);
+            this.client = clientModel;
+        }
+    }
+
+    public void setDepartmentId(UUID departmentId) {
+        if (departmentId != null) {
+            Department departmentModel = new Department();
+            departmentModel.setId(departmentId);
+            this.department = departmentModel;
+        }
+    }
+
+    public void setDivisionId(UUID divisionId) {
+        if (divisionId != null) {
+            Division divisionModel = new Division();
+            divisionModel.setId(divisionId);
+            this.division = divisionModel;
+        }
+    }
+
+    public void setJobUnitId(UUID jobUnitId) {
+        if (jobUnitId != null) {
+            JobUnit jobUnitModel = new JobUnit();
+            jobUnitModel.setId(jobUnitId);
+            this.jobUnit = jobUnitModel;
+        }
+    }
+
+    public void setJobLevelId(UUID jobLevelId) {
+        if (jobLevelId != null) {
+            JobLevel jobLevelModel = new JobLevel();
+            jobLevelModel.setId(jobLevelId);
+            this.jobLevel = jobLevelModel;
+        }
+    }
+
+    public void setJobTitleId(UUID jobTitleId) {
+        if (jobTitleId != null) {
+            JobTitle jobTitleModel = new JobTitle();
+            jobTitleModel.setId(jobTitleId);
+            this.jobTitle = jobTitleModel;
+        }
+    }
+
+    public void setRoleId(String roleId) {
+        Role roleModel = new Role();
+        roleModel.setId(roleId);
+        this.role = roleModel;
+    }
+
+    public User roleId(String roleId) {
+        setRoleId(roleId);
         return this;
     }
 
-    public User name(String name) {
-        setName(name);
+    public User clientId(UUID clientId) {
+        setClientId(clientId);
         return this;
     }
 
-    public User email(String email) {
-        setEmail(email);
+    public User departmentId(UUID departmentId) {
+        setDepartmentId(departmentId);
         return this;
     }
 
-    public User password(String password) {
-        setPassword(password);
+    public User divisionId(UUID divisionId) {
+        setDivisionId(divisionId);
         return this;
     }
 
-    public User client(Client client) {
-        setClient(client);
+    public User jobUnitId(UUID jobUnitId) {
+        setJobUnitId(jobUnitId);
         return this;
     }
 
-    public User role(Role role) {
-        setRole(role);
+    public User jobLevelId(UUID jobLevelId) {
+        setJobLevelId(jobLevelId);
         return this;
+    }
+
+    public User jobTitleId(UUID jobTitleId) {
+        setJobTitleId(jobTitleId);
+        return this;
+    }
+
+    public Department getDepartment() {
+        return this.department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Division getDivision() {
+        return this.division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
+    }
+
+    public JobUnit getJobUnit() {
+        return this.jobUnit;
+    }
+
+    public void setJobUnit(JobUnit jobUnit) {
+        this.jobUnit = jobUnit;
+    }
+
+    public JobLevel getJobLevel() {
+        return this.jobLevel;
+    }
+
+    public void setJobLevel(JobLevel jobLevel) {
+        this.jobLevel = jobLevel;
+    }
+
+    public JobTitle getJobTitle() {
+        return this.jobTitle;
+    }
+
+    public void setJobTitle(JobTitle jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
     @Override
@@ -156,6 +315,16 @@ public class User {
                 ", client='" + getClient() + "'" +
                 ", role='" + getRole() + "'" +
                 "}";
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.id.toString();
     }
 
 }
