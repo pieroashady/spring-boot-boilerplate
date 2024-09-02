@@ -50,36 +50,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // @Bean
-    // public SecurityFilterChain customFilterChain(HttpSecurity http) throws
-    // Exception {
-    // http
-    // .csrf(csrf -> csrf.disable())
-    // .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-    // // .requestMatchers("/api/auth/**").permitAll()
-    // .requestMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html",
-    // "/webjars/**")
-    // .authenticated()
-    // .anyRequest().authenticated())
-    // .httpBasic(withDefaults())
-    // .authorizeHttpRequests(auth -> auth
-    // .requestMatchers("/api/auth/**").permitAll()
-    // .anyRequest().authenticated() // Protect all other endpoints
-    // )
-    // .sessionManagement(sess -> sess
-    // .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No sessions
-    // )
-    // .authenticationProvider(authenticationProvider()) // Custom authentication
-    // provider
-    // .addFilterBefore(jwtRequestFilter(),
-    // UsernamePasswordAuthenticationFilter.class);
-
-    // // http.addFilterBefore(jwtRequestFilter(),
-    // // UsernamePasswordAuthenticationFilter.class);
-
-    // return http.build();
-    // }
-
     @Bean
     public JwtAuthenticationFilter jwtRequestFilter() {
         return new JwtAuthenticationFilter();
