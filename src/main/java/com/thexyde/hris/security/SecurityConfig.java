@@ -33,11 +33,11 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll() // permit auth endpoint
                         .requestMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html",
-                                "/webjars/**")
+                                "/webjars/**") // protect open api docs with basic auth
                         .authenticated()
-                        .anyRequest().authenticated() // Protect all other endpoints
+                        .anyRequest().authenticated() // private api
                 )
                 .sessionManagement(sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No sessions
@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider()) // Custom authentication
                 .addFilterBefore(jwtRequestFilter(),
                         UsernamePasswordAuthenticationFilter.class)
-                .httpBasic(withDefaults()); // Add JWT filter
+                .httpBasic(withDefaults());
 
         return http.build();
     }
