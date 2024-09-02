@@ -33,7 +33,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserById(String userId) {
+    public User getUserById(UUID userId) {
         return userRepository.findById(userId).orElse(null);
     }
 
