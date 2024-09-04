@@ -1,11 +1,10 @@
 package com.thexyde.hris.module.authentication;
 
-public class LoginDTO {
+public class AuthDTO {
 
     private String email;
 
     private String password;
-
 
     public String getEmail() {
         return this.email;
@@ -22,6 +21,5 @@ public class LoginDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
 }

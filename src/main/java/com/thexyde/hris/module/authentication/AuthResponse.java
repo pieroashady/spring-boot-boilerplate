@@ -1,6 +1,6 @@
 package com.thexyde.hris.module.authentication;
 
-public class LoginResponse {
+public class AuthResponse {
 
     private String token;
 
