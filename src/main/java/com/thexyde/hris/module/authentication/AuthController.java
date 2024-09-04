@@ -49,6 +49,6 @@ public class AuthController {
                     return ResponseEntity.ok(new RefreshResponse(token, refreshDTO.getRefreshToken()));
                 })
                 .orElseThrow(() -> new RefreshTokenException(refreshDTO.getRefreshToken(),
-                        "Refresh token is not in database!"));
+                        "Invalid refresh token"));
     }
 }
