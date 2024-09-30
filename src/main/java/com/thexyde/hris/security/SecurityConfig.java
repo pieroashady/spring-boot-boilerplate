@@ -35,7 +35,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                // .exceptionHandling(exception ->
+                // exception.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll() // permit auth endpoint
                         .requestMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html",

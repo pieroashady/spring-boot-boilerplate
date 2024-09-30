@@ -72,7 +72,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // return;
             // // handlerExceptionResolver.resolveException(request, response, null,
             // // exception);
-            request.setAttribute("expired", exception);
+            // request.setAttribute("expired", exception);
         }
 
         filterChain.doFilter(request, response);
